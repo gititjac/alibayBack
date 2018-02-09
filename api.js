@@ -7,6 +7,4 @@ app.get('/itemsBought', (req, res) => {
     res.send(JSON.stringify(alibay.getItemsBought(uid)));
 });
 
-alibay.initPermanentStorage().then(() => {
-    app.listen(3000, () => console.log('Listening on port 3000!'))
-});
+app.listen(3000, () => console.log('Listening on port 3000!'))
