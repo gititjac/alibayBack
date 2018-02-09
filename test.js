@@ -1,20 +1,19 @@
 const alibay = require('./alibay');
 
 async function test() {
-    await alibay.initPermanentStorage();
     let sellerID = alibay.genUID();
     let buyerID = alibay.genUID();
 
-    await alibay.initializeUserIfNeeded(sellerID)
-    await alibay.initializeUserIfNeeded(buyerID)
+    alibay.initializeUserIfNeeded(sellerID)
+    alibay.initializeUserIfNeeded(buyerID)
 
-    let listing1ID = await alibay.createListing(sellerID, 500000, "A very nice boat")
-    let listing2ID = await alibay.createListing(sellerID, 1000, "Faux fur gloves")
-    let listing3ID = await alibay.createListing(sellerID, 100, "Running shoes")
+    let listing1ID = alibay.createListing(sellerID, 500000, "A very nice boat")
+    let listing2ID = alibay.createListing(sellerID, 1000, "Faux fur gloves")
+    let listing3ID = alibay.createListing(sellerID, 100, "Running shoes")
     let product2Description =  alibay.getItemDescription(listing2ID)
 
-    await buy(buyerID, sellerID, listing2ID)
-    await buy(buyerID, sellerID, listing3ID)
+    buy(buyerID, sellerID, listing2ID)
+    buy(buyerID, sellerID, listing3ID)
 
     let allSold = alibay.allItemsSold(sellerID)
     let soldDescriptions = allSold.map(alibay.getItemDescription)
