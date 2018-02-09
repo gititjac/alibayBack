@@ -25,12 +25,12 @@ function getItemsBought(userID) {
 /*
 initializeUserIfNeeded adds the UID to our database unless it's already there
 parameter: [uid] the UID of the user.
-returns: A promise
+returns: undefined
 */
 function initializeUserIfNeeded(uid) {
     var items = getItemsBought[uid];
     if(items == undefined) {
-        return putItemsBought(uid, {});
+        putItemsBought(uid, {});
     }
 }
 
@@ -50,7 +50,7 @@ This function is incomplete. You need to complete it.
       [sellerID] The ID of the seller
       [price] The price of the item
       [blurb] A blurb describing the item
-    returns: A promise containing the ID of the new listing
+    returns: The ID of the new listing
 */
 function createListing(sellerID, price, blurb) {
     
@@ -75,7 +75,7 @@ The seller will see the listing in his history of items sold
      [buyerID] The ID of buyer
      [sellerID] The ID of seller
      [listingID] The ID of listing
-    returns: A promise indicating that the action was done
+    returns: undefined
 */
 function buy(buyerID, sellerID, listingID) {
     
