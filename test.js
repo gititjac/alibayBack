@@ -1,6 +1,6 @@
 const alibay = require('./alibay');
 
-async function test() {
+function test() {
     let sellerID = alibay.genUID();
     let buyerID = alibay.genUID();
 
