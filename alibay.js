@@ -30,7 +30,7 @@ returns: undefined
 function initializeUserIfNeeded(uid) {
     var items = getItemsBought[uid];
     if(items == undefined) {
-        putItemsBought(uid, {});
+        putItemsBought(uid, []);
     }
 }
 
