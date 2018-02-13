@@ -12,8 +12,8 @@ function test() {
     let listing3ID = alibay.createListing(sellerID, 100, "Running shoes")
     let product2Description =  alibay.getItemDescription(listing2ID)
 
-    buy(buyerID, sellerID, listing2ID)
-    buy(buyerID, sellerID, listing3ID)
+    alibay.buy(buyerID, sellerID, listing2ID)
+    alibay.buy(buyerID, sellerID, listing3ID)
 
     let allSold = alibay.allItemsSold(sellerID)
     let soldDescriptions = allSold.map(alibay.getItemDescription)
