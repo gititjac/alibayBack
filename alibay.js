@@ -114,6 +114,10 @@ module.exports = {
     genUID, // This is just a shorthand. It's the same as genUID: genUID. 
     initializeUserIfNeeded,
     putItemsBought,
-    getItemsBought
+    getItemsBought,
+    createListing,
+    getItemDescription,
+    buy,
+    allItemsSold
     // Add all the other functions that need to be exported
 }
