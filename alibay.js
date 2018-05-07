@@ -3,7 +3,7 @@ const assert = require('assert');
 let itemsBought = {} // map that keeps track of all the items a user has bought
 
 /*
-Before implementing the login functionality, use this function to generate a new UID every time.
+Use this function to generate a new UID every time a user creates an account.
 */
 function genUID() {
     return Math.floor(Math.random() * 100000000)
