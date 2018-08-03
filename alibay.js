@@ -1,4 +1,12 @@
+import React, {Component} from 'react';
 const assert = require('assert');
+
+class alibay extends Component {
+    constructor(props) {
+        super (props);
+        
+    }
+}
 
 let itemsBought = {} // map that keeps track of all the items a user has bought
 
