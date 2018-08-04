@@ -110,11 +110,13 @@ app.get('/soldHistory', (req, res) => {
 })
 
 app.get('/allItemsForSale', (req,res) => {
+    //L: would itemsForSale be an array or an object?
     let itemsForSale = [];
     if(allItemsArray.buyerId === undefined ){
         itemsForSale = allItemsArray.filter(x => x.buyerId === undefined)
     }
     else {
+        //L: How is the .query working below?
         itemsForSale = allItemsArray.filter(x => x.query.buyerId.toString() === 2 )
     }
     res.send(JSON.stringify(itemsForSale))
@@ -136,6 +138,7 @@ app.post('/sellItem', (req, res) => {
     let description = parsed.description;
     let price = parsed.price;
     let sellerId = parsed.sellerId;
+    //L: would you setState here? To add the item to the backend?
     res.send('itemId: ' + (Math.floor(Math.random()*1000000)))
 })
 
