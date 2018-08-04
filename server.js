@@ -7,7 +7,7 @@ app.use(bodyParser.raw({type: '*/*'}));
 let serverState = {
     items:
         {1: {
-            itemName: "1996 Honda Civic",
+            itemName: "1996 Honda Toyota",
             description: "nice car, runs well",
             price: 2000,
             sellerId: 1, //bob
