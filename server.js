@@ -100,6 +100,7 @@ app.post('/signup', (req, res) =>{
 
 app.get('/boughtHistory', (req,res) => {
     let BobsItemsBought = allUsersArray[0].itemsBought;//access the array of itemIds bob has bought
+    //L : this is sends back an array of the itemIDs, right? can we send back the names too, or should that be a separate request?
     res.send(JSON.stringify(BobsItemsBought))
     
 })
