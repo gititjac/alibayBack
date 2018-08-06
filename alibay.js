@@ -21,6 +21,8 @@ function genUID() {
     return Math.floor(Math.random() * 100000000)
 }
 
+//signup function takes a username and password, which must be more than 5 characters. The userId is generated using the genUID() function and
+//the user is then stored in the users object.
 function signup (username, pass) {
     if(pass.length < 5) {
         return {success: false, message: "password too short"}
@@ -38,7 +40,7 @@ function signup (username, pass) {
     }    
 } 
 
-
+//the login function takes an username and password, matches it to a username and password in the users object, and returns success or failure accordingly
 function login(username, password) {
         let result = {success: false}
     Object.keys(users).map((userId, ind) => {
@@ -50,10 +52,12 @@ function login(username, password) {
 
 }
 
+//this function takes an userId and itemId and places it in the itemsBought object.
 function putItemsBought(userId, itemId) {
     itemsBought[userId] = itemId;
 }
 
+//Function is similar to one above and put it in the itemsSold object
 function putItemsSold(userId, itemId) {
     itemsSold[userId] = itemId;
 
@@ -81,10 +85,10 @@ initializeUserIfNeeded adds the UID to our database unless it's already there
 parameter: [uid] the UID of the user.
 returns: undefined
 */
-function initializeUserIfNeeded(uid) {
-    var items = getItemsBought[uid];
+function initializeUserIfNeeded(userId) {
+    var items = getItemsBought[userId];
     if(items == null) {
-        putItemsBought(uid, []);
+        putItemsBought(userId, []);
     }
 }
 
@@ -108,7 +112,12 @@ This function is incomplete. You need to complete it.
 */
 function createListing(itemName, sellerId, price, description) {
     let itemId = genUID();
-    allItems[itemId] = {itemName, sellerId, price, description};
+    allItems[itemId] = {
+        itemName, 
+        sellerId, 
+        price, 
+        description,
+        itemId };
     return {success: true, itemId};
 }
 
@@ -118,8 +127,8 @@ getItemDescription returns the description of a listing
     returns: An object containing the price and blurb properties.
 */
 function getItemDescription(itemId) {
-    let description = allItems[itemId];
-    return {success:true, description};
+    let itemDesc = Object.keys(allItems).map((itsmId, ind)=>{return items[itemId].description} )
+    return {success:true, itemDesc};
 }
 
 /* 
@@ -158,10 +167,12 @@ Once an item is sold, it will not be returned by allListings
     returns: an array of listing IDs
 */
 function allListings() {
-    let allItems = Object.keys(allItems).map((itemId, idx) => {
-        return allItems[itemId]
-    })
-
+    let allListings = [];
+    let allItemsArray = Object.keys(items)
+    if(allItemsArray.buyerId === undefined) {
+        allListings = allItemsArray.filter(x => x.buyerId === undefined)
+    }
+    return{success: true, allListings}
     }
 
 
@@ -173,6 +184,8 @@ Once an item is sold, it will not be returned by searchForListings
     returns: an array of listing IDs
 */
 function searchForListings(searchTerm) {
+    let searchedItems = [].allItemsArray.filter(x=>x.description.includes(searchTerm))
+    return {success: true, searchedItems}
     
 }
 

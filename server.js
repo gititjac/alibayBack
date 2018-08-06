@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require ('body-parser');
-const alibay = require ('./alibay.js')
+
+/* const alibay = require ('./alibay.js') */
 
 app.use(bodyParser.raw({type: '*/*'}));
 
@@ -28,7 +29,7 @@ let serverState = {
             description: "red ballerina heels",
             price: 300,
             sellerId: 2,//sue
-            buyerId: 3,//jack
+            buyerId: undefined,//jack
             itemId: 3 
             },
         4: {
@@ -100,13 +101,13 @@ app.post('/signup', (req, res) =>{
 })
 
 app.get('/boughtHistory', (req,res) => {
-    let BobsItemsBought = allUsersArray[0].itemsBought.map((itemId, ind)=> {return items[itemId].itemName});//access the names of items bob has bought
+    let BobsItemsBought = allUsersArray[0].itemsBought.map((itemId, ind)=> {return items[itemId].itemName});//access the names of items bob has bought.
     res.send(JSON.stringify(BobsItemsBought))
     
 })
 
 app.get('/soldHistory', (req, res) => {
-    let sueSold = allUsersArray[1].itemsforSale;//access the array of Items sue has put on sale. Similar to the method above for name or other props
+    let sueSold = allUsersArray[1].itemsforSale.map((itemId, ind) => {return items[itemId].itemName});//access the array of Item names sue has put on sale.
     res.send(JSON.stringify(sueSold))
 })
 
@@ -137,11 +138,16 @@ app.post('/sellItem', (req, res) => {
     let description = parsed.description;
     let price = parsed.price;
     let sellerId = parsed.sellerId;
-    res.send('itemId: ' + (Math.floor(Math.random()*1000000)))
+    res.send(itemId)
 })
 
 app.get('/searchItemForSale', (req, res) => {
-    res.send(JSON.stringify(serverState.items))//details to be added
+    let searchedItems = []
+   // let searchParams = query.desc.term
+    searchedItems = allItemsArray.filter(
+        x => x.description.includes("car"));
+    
+    res.send(JSON.stringify(searchedItems))
 }) 
 
 app.listen(4001, ()=> (console.log("listening on port 4000")))
