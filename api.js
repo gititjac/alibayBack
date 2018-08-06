@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 
 app.get('/itemsBought', (req, res) => {
-    let uid = req.query.uid;
+    let uid = req.query.userId;
     res.send(JSON.stringify(alibay.getItemsBought(uid)));
 });
 

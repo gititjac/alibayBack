@@ -99,13 +99,13 @@ app.post('/signup', (req, res) =>{
 })
 
 app.get('/boughtHistory', (req,res) => {
-    let BobsItemsBought = allUsersArray[0].itemsBought;//access the array of itemIds bob has bought
+    let BobsItemsBought = allUsersArray[0].itemsBought.map((itemId, ind)=> {return items[itemId].itemName});//access the names of items bob has bought
     res.send(JSON.stringify(BobsItemsBought))
     
 })
 
 app.get('/soldHistory', (req, res) => {
-    let sueSold = allUsersArray[1].itemsforSale;//access the array of Items sue has put on sale
+    let sueSold = allUsersArray[1].itemsforSale;//access the array of Items sue has put on sale. Similar to the method above for name or other props
     res.send(JSON.stringify(sueSold))
 })
 
@@ -115,7 +115,7 @@ app.get('/allItemsForSale', (req,res) => {
         itemsForSale = allItemsArray.filter(x => x.buyerId === undefined)
     }
     else {
-        itemsForSale = allItemsArray.filter(x => x.query.buyerId.toString() === 2 )
+        itemsForSale = allItemsArray.filter(x => x.query.buyerId.toString() === 2 )//this is to see what items a user has for sale by userId
     }
     res.send(JSON.stringify(itemsForSale))
 })

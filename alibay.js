@@ -11,9 +11,9 @@ class alibay extends Component {
 }
 
 let itemsBought = {}; // map that keeps track of all the items a user has bought
-let users = {};
-let itemsSold = {};
-let allItems = {};
+let users = {}; //map that keeps track of all the users
+let itemsSold = {};//map that keeps track of all items sold
+let allItems = {};//map that keeps track of all items
 let itemIds = Object.keys(allItems).filter ((item) => {
     if(allItems[item].itemName) {
         return {success: true}
@@ -30,13 +30,13 @@ function genUID() {
 
 function signup (username, pass) {
     let userId = genUID();
-    let usersList = [];
     let password = sha256(pass);
-    Object.keys(users).map((userId, ind) => {usersList.push(users[userId])})
     if(password.length < 5) {
-        return {success: false, }
+        return {success: false, console.log("password too short")}
     }
-    else {return userId}
+    Object.keys(users).map((userId, ind) => {usersList.push(users[userId])})
+    
+    return userId
 } 
 
 
