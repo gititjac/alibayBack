@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 {
   "ignore": ["*json"]
+=======
+{
+  "ignore": ["*json"]
+>>>>>>> 4730f48a1065ebcfd8ca488c4b2e9d943345ba49
 }
