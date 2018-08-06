@@ -101,13 +101,13 @@ app.post('/signup', (req, res) =>{
 })
 
 app.get('/boughtHistory', (req,res) => {
-    let BobsItemsBought = allUsersArray[0].itemsBought.map((itemId, ind)=> {return items[itemId].itemName});//access the names of items bob has bought.
+    let BobsItemsBought = allUsersArray[0].itemsBought.map((itemId, ind)=> {return serverState.items[itemId].itemName});//access the names of items bob has bought.
     res.send(JSON.stringify(BobsItemsBought))
     
 })
 
 app.get('/soldHistory', (req, res) => {
-    let sueSold = allUsersArray[1].itemsforSale.map((itemId, ind) => {return items[itemId].itemName});//access the array of Item names sue has put on sale.
+    let sueSold = allUsersArray[1].itemsforSale.map((itemId, ind) => {return serverState.items[itemId].itemName});//access the array of Item names sue has put on sale.
     res.send(JSON.stringify(sueSold))
 })
 
@@ -133,7 +133,7 @@ app.post('/buyItem', (req,res) => {
 
 app.post('/sellItem', (req, res) => {
     let body = req.body.toString();
-    let parsed = JSON.stringify(body);
+    let parsed = JSON.parse(body);
     let itemName = parsed.itemName;
     let description = parsed.description;
     let price = parsed.price;

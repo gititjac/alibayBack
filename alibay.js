@@ -184,7 +184,9 @@ Once an item is sold, it will not be returned by searchForListings
     returns: an array of listing IDs
 */
 function searchForListings(searchTerm) {
-    let searchedItems = [].allItemsArray.filter(x=>x.description.includes(searchTerm))
+    let searchedItems = []
+    searchedItems = allItemsArray.filter(x=>x.description.includes(searchTerm))||
+                    allItemsArray.filter(x=>x.itemName.includes(searchTerm))
     return {success: true, searchedItems}
     
 }
