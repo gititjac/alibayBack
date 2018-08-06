@@ -100,7 +100,6 @@ app.post('/signup', (req, res) =>{
 
 app.get('/boughtHistory', (req,res) => {
     let BobsItemsBought = allUsersArray[0].itemsBought;//access the array of itemIds bob has bought
-    //L : this is sends back an array of the itemIDs, right? can we send back the names too, or should that be a separate request?
     res.send(JSON.stringify(BobsItemsBought))
     
 })
@@ -111,13 +110,11 @@ app.get('/soldHistory', (req, res) => {
 })
 
 app.get('/allItemsForSale', (req,res) => {
-    //L: would itemsForSale be an array or an object?
     let itemsForSale = [];
     if(allItemsArray.buyerId === undefined ){
         itemsForSale = allItemsArray.filter(x => x.buyerId === undefined)
     }
     else {
-        //L: How is the .query working below?
         itemsForSale = allItemsArray.filter(x => x.query.buyerId.toString() === 2 )
     }
     res.send(JSON.stringify(itemsForSale))
@@ -139,7 +136,6 @@ app.post('/sellItem', (req, res) => {
     let description = parsed.description;
     let price = parsed.price;
     let sellerId = parsed.sellerId;
-    //L: would you setState here? To add the item to the backend?
     res.send('itemId: ' + (Math.floor(Math.random()*1000000)))
 })
 
