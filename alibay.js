@@ -29,14 +29,20 @@ function genUID() {
 }
 
 function signup (username, pass) {
+    if(pass.length < 5) {
+        return {success: false, message: "password too short"}
+    }
+    else{
     let userId = genUID();
     let password = sha256(pass);
-    if(password.length < 5) {
-        return {success: false, console.log("password too short")}
+    users[userId] = {
+        username,
+        password,
+        userId
     }
-    Object.keys(users).map((userId, ind) => {usersList.push(users[userId])})
-    
+     
     return userId
+    }    
 } 
 
 
