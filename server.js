@@ -145,7 +145,8 @@ app.get('/searchItemForSale', (req, res) => {
     let searchedItems = []
    // let searchParams = query.desc.term
     searchedItems = allItemsArray.filter(
-        x => x.description.includes("car"));
+        x => x.description.includes("car")) ||
+        allItemsArray.filter(x=>x.itemName.includes("boat"));
     
     res.send(JSON.stringify(searchedItems))
 }) 
