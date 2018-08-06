@@ -3,13 +3,6 @@ const assert = require('assert');
 const sha256 = require ('sha256');
 
 
-class alibay extends Component {
-    constructor(props) {
-        super (props);
-        
-    }
-}
-
 let itemsBought = {}; // map that keeps track of all the items a user has bought
 let users = {}; //map that keeps track of all the users
 let itemsSold = {};//map that keeps track of all items sold
@@ -47,15 +40,12 @@ function signup (username, pass) {
 
 
 function login(username, password) {
-        let userId = genUID();
-    Object.keys(users).map((user, ind) => {
+        let result = {success: false}
+    Object.keys(users).map((userId, ind) => {
         if(users[userId].username === username && users[userId].password === sha256(password)) {
-            return {success:true, userId, username, password}
+             result = {success:true, userId, username, password}
         }
-        else {
-            return {success: false}
-        }
-
+       return result;
     })
 
 }
