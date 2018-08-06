@@ -41,9 +41,10 @@ function signup (username, pass) {
 
 
 function login(username, password) {
+        let userId = genUID();
     Object.keys(users).map((user, ind) => {
         if(users[userId].username === username && users[userId].password === sha256(password)) {
-            return {success:true, genUID(), username, password}
+            return {success:true, userId, username, password}
         }
         else {
             return {success: false}
@@ -164,7 +165,7 @@ function allListings() {
     let allItems = Object.keys(allItems).map((itemId, idx) => {
         return allItems[itemId]
     })
-        
+
     }
 
 
