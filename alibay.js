@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+
 const assert = require('assert');
 const sha256 = require ('sha256');
 
@@ -54,12 +54,12 @@ function login(username, password) {
 
 //this function takes an userId and itemId and places it in the itemsBought object.
 function putItemsBought(userId, itemId) {
-    itemsBought[userId] = itemId;
+    itemsBought[userId].push(itemId);
 }
 
-//Function is similar to one above and put it in the itemsSold object
+//Function is similar to one above and put it in the itemsSold 
 function putItemsSold(userId, itemId) {
-    itemsSold[userId] = itemId;
+    itemsSold[userId].push(itemId);
 
 }
 
@@ -87,8 +87,11 @@ returns: undefined
 */
 function initializeUserIfNeeded(userId) {
     var items = getItemsBought[userId];
-    if(items == null) {
-        putItemsBought(userId, []);
+    if(!items) {
+        itemsBought[userId] = [];
+        itemsSold[userId] = [];
+        //putItemsBought(userId, []);
+        //putItemsSold(userId, []);
     }
 }
 
@@ -118,7 +121,7 @@ function createListing(itemName, sellerId, price, description) {
         price, 
         description,
         itemId };
-    return {success: true, itemId};
+    return itemId;
 }
 
 /* 
@@ -127,8 +130,8 @@ getItemDescription returns the description of a listing
     returns: An object containing the price and blurb properties.
 */
 function getItemDescription(itemId) {
-    let itemDesc = Object.keys(allItems).map((itsmId, ind)=>{return items[itemId].description} )
-    return {success:true, itemDesc};
+    return allItems[itemId];
+    
 }
 
 /* 
@@ -158,7 +161,7 @@ allItemsSold returns the IDs of all the items sold by a seller
 */
 function allItemsSold(sellerId) {
     let itemIds = itemsSold[sellerId];
-    return {success: true, itemIds}
+    return itemIds
 }
 
 /*
@@ -168,11 +171,11 @@ Once an item is sold, it will not be returned by allListings
 */
 function allListings() {
     let allListings = [];
-    let allItemsArray = Object.keys(items)
-    if(allItemsArray.buyerId === undefined) {
-        allListings = allItemsArray.filter(x => x.buyerId === undefined)
-    }
-    return{success: true, allListings}
+    let allItemsArray = Object.keys(allItems)
+    
+    allListings = allItemsArray.filter(itemId => allItems[itemId].buyerId === undefined)
+    
+    return allListings
     }
 
 
@@ -185,9 +188,11 @@ Once an item is sold, it will not be returned by searchForListings
 */
 function searchForListings(searchTerm) {
     let searchedItems = []
-    searchedItems = allItemsArray.filter(x=>x.description.includes(searchTerm))||
-                    allItemsArray.filter(x=>x.itemName.includes(searchTerm))
-    return {success: true, searchedItems}
+    let allItemsArray = Object.keys(allItems)
+
+    searchedItems = allItemsArray.filter(itemId=>!allItems[itemId].buyerId && (allItems[itemId].description.includes(searchTerm)||allItems[itemId].itemName.includes(searchTerm)))
+                 
+    return searchedItems
     
 }
 
@@ -196,9 +201,12 @@ module.exports = {
     initializeUserIfNeeded,
     putItemsBought,
     getItemsBought,
+    allItemsBought,
     createListing,
     getItemDescription,
     buy,
-    allItemsSold
+    allItemsSold,
+    allListings,
+    searchForListings
     // Add all the other functions that need to be exported
 }
