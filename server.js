@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require ('body-parser');
-const alibay = require ('./alibay.js')
+//const alibay = require ('./alibay.js')
 
 app.use(bodyParser.raw({type: '*/*'}));
 
@@ -142,6 +142,11 @@ app.post('/sellItem', (req, res) => {
 
 app.get('/searchItemForSale', (req, res) => {
     res.send(JSON.stringify(serverState.items))//details to be added
+}) 
+
+app.get('/getItem', (req, res) => {
+    let item = {itemName:"name",description:"desc", price:"40$", sellerId:"2"}
+    res.send(JSON.stringify(item))
 }) 
 
 app.listen(4001, ()=> (console.log("listening on port 4000")))

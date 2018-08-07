@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const alibay = require('./alibay')
 const express = require('express')
 const app = express()
@@ -36,7 +35,6 @@ app.post('/login',(req,res) => {
 })
 
 app.listen(3000, () => console.log('Listening on port 3000!'))
-=======
 const alibay = require('./alibay')
 const express = require('express')
 const app = express()
@@ -74,4 +72,3 @@ app.post('/login',(req,res) => {
 })
 
 app.listen(3000, () => console.log('Listening on port 3000!'))
->>>>>>> 4730f48a1065ebcfd8ca488c4b2e9d943345ba49
