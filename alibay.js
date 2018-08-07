@@ -1,12 +1,24 @@
 
 const assert = require('assert');
 const sha256 = require ('sha256');
+const fs = require ('fs');
 
+/* let ItemsBought = function (itemsBought) {
+    return fs.writeFileSync('./itemsBought.json', JSON.stringify(itemsBought))
+}
 
-let itemsBought = {}; // map that keeps track of all the items a user has bought
-let users = {}; //map that keeps track of all the users
-let itemsSold = {};//map that keeps track of all items sold
-let allItems = {};//map that keeps track of all items
+let getItemsBought = function () {
+   return fs.readFileSync('./itemsBought', )
+} */
+
+//let itemsBought = {}; // map that keeps track of all the items a user has bought
+let itemsBought = JSON.parse(fs.readFileSync('data/itemsBought.json'))
+//let users = {}; //map that keeps track of all the users
+let users = JSON.parse(fs.readFileSync('data/userList.json'))
+//let itemsSold = {};//map that keeps track of all items sold
+let itemsSold = JSON.parse(fs.readFileSync('data/itemsSold.json'))
+//let allItems = {};//map that keeps track of all items
+let allItems = JSON.parse(fs.readFileSync('data/allItems.json'))
 let itemIds = Object.keys(allItems).filter ((item) => {
     if(allItems[item].itemName) {
         return {success: true}
@@ -36,7 +48,8 @@ function signup (username, pass) {
         userId
     }
      
-    return userId
+    return userId;
+    fs.writeFileSync('data/userList.json', JSON.stringify(users))
     }    
 } 
 
@@ -55,12 +68,13 @@ function login(username, password) {
 //this function takes an userId and itemId and places it in the itemsBought object.
 function putItemsBought(userId, itemId) {
     itemsBought[userId].push(itemId);
+    fs.writeFileSync('data/itemsBought.json', itemsBought)
 }
 
 //Function is similar to one above and put it in the itemsSold 
 function putItemsSold(userId, itemId) {
     itemsSold[userId].push(itemId);
-
+    fs.writeFileSync('data/itemsSold.json', itemsSold)
 }
 
 function getItemsBought(userId) {
