@@ -38,8 +38,7 @@ function genUID() {
 function signup (username, pass) {
     if(pass.length < 5) {
         return {success: false, message: "password too short"}
-    }
-    else{
+    } else {
     let userId = genUID();
     let password = sha256(pass);
     users[userId] = {
@@ -47,10 +46,11 @@ function signup (username, pass) {
         password,
         userId
     }
-     
+    fs.writeFileSync('data/userList.json', JSON.stringify(users)) 
     return userId;
-    fs.writeFileSync('data/userList.json', JSON.stringify(users))
-    }    
+    
+    }
+        
 } 
 
 //the login function takes an username and password, matches it to a username and password in the users object, and returns success or failure accordingly
@@ -68,13 +68,13 @@ function login(username, password) {
 //this function takes an userId and itemId and places it in the itemsBought object.
 function putItemsBought(userId, itemId) {
     itemsBought[userId].push(itemId);
-    fs.writeFileSync('data/itemsBought.json', itemsBought)
+    fs.writeFileSync('data/itemsBought.json', JSON.stringify(itemsBought))
 }
 
 //Function is similar to one above and put it in the itemsSold 
 function putItemsSold(userId, itemId) {
     itemsSold[userId].push(itemId);
-    fs.writeFileSync('data/itemsSold.json', itemsSold)
+    fs.writeFileSync('data/itemsSold.json', JSON.stringify(itemsSold))
 }
 
 function getItemsBought(userId) {
@@ -134,8 +134,11 @@ function createListing(itemName, sellerId, price, description) {
         sellerId, 
         price, 
         description,
-        itemId };
+        itemId 
+    };
+    fs.writeFileSync('data/allItems.json', JSON.stringify(allItems))
     return itemId;
+    
 }
 
 /* 
@@ -165,6 +168,7 @@ function buy(buyerId, sellerId, itemId) {
     putItemsSold(sellerId, itemId);
     let item = allItems[itemId];
     item.buyerId = buyerId;
+    fs.writeFileSync('data/allItems.json', JSON.stringify(allItems))
 }
 
 
@@ -221,6 +225,7 @@ module.exports = {
     buy,
     allItemsSold,
     allListings,
-    searchForListings
+    searchForListings,
+    signup
     // Add all the other functions that need to be exported
 }

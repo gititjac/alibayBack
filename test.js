@@ -3,12 +3,13 @@ const assert = require ('assert');
 
 
 function test() {
+
     let sellerID = alibay.genUID();
     let buyerID = alibay.genUID();
 
     alibay.initializeUserIfNeeded(sellerID)
     alibay.initializeUserIfNeeded(buyerID)
-
+    let user1 = alibay.signup("bob", "pw12345");
     let listing1ID = alibay.createListing("boat",sellerID, 500000, "A very nice boat")
     let listing2ID = alibay.createListing('gloves', sellerID, 1000, "Faux fur gloves")
     let listing3ID = alibay.createListing('shoes', sellerID, 100, "Running shoes")
