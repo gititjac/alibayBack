@@ -215,8 +215,8 @@ function searchForListings(searchTerm) {
 }
 
 function getItem (itemId) {
-    let allItemsArray = Object.keys(allItems);
-    let specificItem = allItemsArray[itemId];
+    
+    let specificItem = allItems[itemId];
     return specificItem
 }
 

@@ -75,6 +75,7 @@ app.get('/searchItemForSale', (req, res) => {
 ) 
 
 app.get('/getItem', (req, res) => {
+    itemId = req.query.itemId;
     res.send(JSON.stringify(alibay.getItem(itemId)))
     }
 )

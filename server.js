@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require ('body-parser');
 
-/* const alibay = require ('./alibay.js') */
+const alibay = require ('./alibay.js')
 
 app.use(bodyParser.raw({type: '*/*'}));
 
@@ -154,7 +154,7 @@ app.get('/searchItemForSale', (req, res) => {
 app.get('/getItem', (req,res) => {
     // let body = req.body.toString();
     // let parsed = JSON.parse(body);
-    let specificItem = allItemsArray[1]
+    let specificItem = alibay.getItem(60433385)
     // specificItem = specificItem[0]
     res.send(JSON.stringify(specificItem))
 } ) 
