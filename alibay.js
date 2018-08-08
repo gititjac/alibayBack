@@ -2,11 +2,7 @@
 const assert = require('assert');
 const sha256 = require ('sha256');
 const fs = require ('fs');
-const bodyParser = require ('body-parser');
 
-const alibay = require ('./alibay.js')
-
-app.use(bodyParser.raw({type: '*/*'}));
 
 /* let ItemsBought = function (itemsBought) {
     return fs.writeFileSync('./itemsBought.json', JSON.stringify(itemsBought))
