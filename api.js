@@ -26,17 +26,16 @@ app.post('/login',(req,res) => {
     }
 )
 
-
 app.get('/boughtHistory', (req,res) => {
-    let userID = alibay.getItemsBought(userId);
-    res.send(JSON.stringify(userID))
+    userId = req.query.userId;
+    res.send(JSON.stringify(alibay.getItemsBought(userId)))
     
     }
 )
 
 app.get('/soldHistory', (req, res) => {
-    let userID = alibay.getItemsSold(userId);
-    res.send(JSON.stringify(userID))
+    userId = req.query.userId
+    res.send(JSON.stringify(alibay.getItemsSold(userId)))
     }
 )
 
