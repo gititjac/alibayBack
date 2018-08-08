@@ -3,7 +3,6 @@ const express = require('express')
 const app = express()
 const bodyParser = require ('body-parser');
 
-const alibay = require ('./alibay.js')
 
 app.use(bodyParser.raw({type: '*/*'}));
 
@@ -38,7 +37,7 @@ app.get('/boughtHistory', (req,res) => {
 )
 
 app.get('/soldHistory', (req, res) => {
-    userId = req.query.userId
+    userId = req.query.userId;
     res.send(JSON.stringify(alibay.getItemsSold(userId)))
     }
 )
@@ -84,4 +83,4 @@ app.get('/getItem', (req, res) => {
 )
 
 
-app.listen(3000, () => console.log('Listening on port 3000!'))
+app.listen(3001, () => console.log('Listening on port 3000!'))
