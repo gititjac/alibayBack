@@ -2,6 +2,11 @@
 const assert = require('assert');
 const sha256 = require ('sha256');
 const fs = require ('fs');
+const bodyParser = require ('body-parser');
+
+const alibay = require ('./alibay.js')
+
+app.use(bodyParser.raw({type: '*/*'}));
 
 /* let ItemsBought = function (itemsBought) {
     return fs.writeFileSync('./itemsBought.json', JSON.stringify(itemsBought))
@@ -37,7 +42,7 @@ function genUID() {
 //the user is then stored in the users object.
 function signup (username, pass) {
     if(pass.length < 5) {
-        return {success: false, message: "password too short"}
+        return "password too short";
     } else {
     let userId = genUID();
     let password = sha256(pass);

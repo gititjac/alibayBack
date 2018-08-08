@@ -1,7 +1,11 @@
 const alibay = require('./alibay')
 const express = require('express')
 const app = express()
+const bodyParser = require ('body-parser');
 
+const alibay = require ('./alibay.js')
+
+app.use(bodyParser.raw({type: '*/*'}));
 
 app.post('/signup', (req, res) =>{
     let body = req.body.toString();

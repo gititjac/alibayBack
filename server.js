@@ -101,8 +101,10 @@ app.post('/signup', (req, res) =>{
 })
 
 app.get('/boughtHistory', (req,res) => {
-    let BobsItemsBought = allUsersArray[0].itemsBought.map((itemId, ind)=> {return serverState.items[itemId].itemName});//access the names of items bob has bought.
-    res.send(JSON.stringify(BobsItemsBought))
+    
+    let userId = req.query.userId
+    // let BobsItemsBought = allUsersArray[0].itemsBought.map((itemId, ind)=> {return serverState.items[itemId].itemName});//access the names of items bob has bought.
+    res.send(JSON.stringify(alibay.getItemsBought(13791428)))
     
 })
 
