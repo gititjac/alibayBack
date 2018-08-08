@@ -1,12 +1,25 @@
-import React, {Component} from 'react';
+
 const assert = require('assert');
 const sha256 = require ('sha256');
+const fs = require ('fs');
 
 
-let itemsBought = {}; // map that keeps track of all the items a user has bought
-let users = {}; //map that keeps track of all the users
-let itemsSold = {};//map that keeps track of all items sold
-let allItems = {};//map that keeps track of all items
+/* let ItemsBought = function (itemsBought) {
+    return fs.writeFileSync('./itemsBought.json', JSON.stringify(itemsBought))
+}
+
+let getItemsBought = function () {
+   return fs.readFileSync('./itemsBought', )
+} */
+
+//let itemsBought = {}; // map that keeps track of all the items a user has bought
+let itemsBought = JSON.parse(fs.readFileSync('data/itemsBought.json'))
+//let users = {}; //map that keeps track of all the users
+let users = JSON.parse(fs.readFileSync('data/userList.json'))
+//let itemsSold = {};//map that keeps track of all items sold
+let itemsSold = JSON.parse(fs.readFileSync('data/itemsSold.json'))
+//let allItems = {};//map that keeps track of all items
+let allItems = JSON.parse(fs.readFileSync('data/allItems.json'))
 let itemIds = Object.keys(allItems).filter ((item) => {
     if(allItems[item].itemName) {
         return {success: true}
@@ -21,11 +34,12 @@ function genUID() {
     return Math.floor(Math.random() * 100000000)
 }
 
+//signup function takes a username and password, which must be more than 5 characters. The userId is generated using the genUID() function and
+//the user is then stored in the users object.
 function signup (username, pass) {
     if(pass.length < 5) {
-        return {success: false, message: "password too short"}
-    }
-    else{
+        return "password too short";
+    } else {
     let userId = genUID();
     let password = sha256(pass);
     users[userId] = {
@@ -33,12 +47,14 @@ function signup (username, pass) {
         password,
         userId
     }
-     
-    return userId
-    }    
+    fs.writeFileSync('data/userList.json', JSON.stringify(users)) 
+    return userId;
+    
+    }
+        
 } 
 
-
+//the login function takes an username and password, matches it to a username and password in the users object, and returns success or failure accordingly
 function login(username, password) {
         let result = {success: false}
     Object.keys(users).map((userId, ind) => {
@@ -50,13 +66,16 @@ function login(username, password) {
 
 }
 
+//this function takes an userId and itemId and places it in the itemsBought object.
 function putItemsBought(userId, itemId) {
-    itemsBought[userId] = itemId;
+    itemsBought[userId].push(itemId);
+    fs.writeFileSync('data/itemsBought.json', JSON.stringify(itemsBought))
 }
 
+//Function is similar to one above and put it in the itemsSold 
 function putItemsSold(userId, itemId) {
-    itemsSold[userId] = itemId;
-
+    itemsSold[userId].push(itemId);
+    fs.writeFileSync('data/itemsSold.json', JSON.stringify(itemsSold))
 }
 
 function getItemsBought(userId) {
@@ -81,10 +100,13 @@ initializeUserIfNeeded adds the UID to our database unless it's already there
 parameter: [uid] the UID of the user.
 returns: undefined
 */
-function initializeUserIfNeeded(uid) {
-    var items = getItemsBought[uid];
-    if(items == null) {
-        putItemsBought(uid, []);
+function initializeUserIfNeeded(userId) {
+    var items = getItemsBought[userId];
+    if(!items) {
+        itemsBought[userId] = [];
+        itemsSold[userId] = [];
+        //putItemsBought(userId, []);
+        //putItemsSold(userId, []);
     }
 }
 
@@ -108,8 +130,16 @@ This function is incomplete. You need to complete it.
 */
 function createListing(itemName, sellerId, price, description) {
     let itemId = genUID();
-    allItems[itemId] = {itemName, sellerId, price, description};
-    return {success: true, itemId};
+    allItems[itemId] = {
+        itemName, 
+        sellerId, 
+        price, 
+        description,
+        itemId 
+    };
+    fs.writeFileSync('data/allItems.json', JSON.stringify(allItems))
+    return itemId;
+    
 }
 
 /* 
@@ -118,8 +148,8 @@ getItemDescription returns the description of a listing
     returns: An object containing the price and blurb properties.
 */
 function getItemDescription(itemId) {
-    let description = allItems[itemId];
-    return {success:true, description};
+    return allItems[itemId];
+    
 }
 
 /* 
@@ -139,6 +169,7 @@ function buy(buyerId, sellerId, itemId) {
     putItemsSold(sellerId, itemId);
     let item = allItems[itemId];
     item.buyerId = buyerId;
+    fs.writeFileSync('data/allItems.json', JSON.stringify(allItems))
 }
 
 
@@ -149,7 +180,7 @@ allItemsSold returns the IDs of all the items sold by a seller
 */
 function allItemsSold(sellerId) {
     let itemIds = itemsSold[sellerId];
-    return {success: true, itemIds}
+    return itemIds
 }
 
 /*
@@ -158,10 +189,12 @@ Once an item is sold, it will not be returned by allListings
     returns: an array of listing IDs
 */
 function allListings() {
-    let allItems = Object.keys(allItems).map((itemId, idx) => {
-        return allItems[itemId]
-    })
-
+    let allListings = [];
+    let allItemsArray = Object.keys(allItems)
+    
+    allListings = allItemsArray.filter(itemId => allItems[itemId].buyerId === undefined)
+    
+    return allListings
     }
 
 
@@ -173,17 +206,37 @@ Once an item is sold, it will not be returned by searchForListings
     returns: an array of listing IDs
 */
 function searchForListings(searchTerm) {
+    let searchedItems = []
+    let allItemsArray = Object.keys(allItems)
+
+    searchedItems = allItemsArray.filter(itemId=>!allItems[itemId].buyerId && (allItems[itemId].description.includes(searchTerm)||allItems[itemId].itemName.includes(searchTerm)))
+                 
+    return searchedItems
     
 }
+
+function getItem (itemId) {
+    
+    let specificItem = allItems[itemId];
+    return specificItem
+}
+
+
 
 module.exports = {
     genUID, // This is just a shorthand. It's the same as genUID: genUID. 
     initializeUserIfNeeded,
     putItemsBought,
     getItemsBought,
+    getItemsSold,
+    allItemsBought,
     createListing,
     getItemDescription,
     buy,
-    allItemsSold
+    allItemsSold,
+    allListings,
+    searchForListings,
+    signup,
+    getItem
     // Add all the other functions that need to be exported
 }

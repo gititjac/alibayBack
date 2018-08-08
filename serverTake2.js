@@ -1,12 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require ('body-parser');
-<<<<<<< HEAD
-//const alibay = require ('./alibay.js')
-=======
-
 const alibay = require ('./alibay.js')
->>>>>>> 2826dea62727d92bff9ecf812aba295bab4eccd1
 
 app.use(bodyParser.raw({type: '*/*'}));
 
@@ -93,11 +88,12 @@ app.post('/login',(req,res) => {
 app.post('/signup', (req, res) =>{
     let body = req.body.toString();
     let parsed = JSON.parse(body);
+    console.log(parsed)
     let username = parsed.username;
     let password = parsed.password;
-    
+    let userID = alibay.signup(username, password)
     if (username.length > 0 && password.length > 5) {
-        res.send('your userid is: ' + (Math.ceil(Math.random()*100000))) //generate userid here?
+        res.send(JSON.stringify(userID)) //generate userid here?
     }
     else {
         res.send('password too short')
@@ -105,10 +101,8 @@ app.post('/signup', (req, res) =>{
 })
 
 app.get('/boughtHistory', (req,res) => {
-    
-    let userId = req.query.userId
-    // let BobsItemsBought = allUsersArray[0].itemsBought.map((itemId, ind)=> {return serverState.items[itemId].itemName});//access the names of items bob has bought.
-    res.send(JSON.stringify(alibay.getItemsBought(13791428)))
+    let BobsItemsBought = allUsersArray[0].itemsBought.map((itemId, ind)=> {return serverState.items[itemId].itemName});//access the names of items bob has bought.
+    res.send(JSON.stringify(BobsItemsBought))
     
 })
 
@@ -157,21 +151,4 @@ app.get('/searchItemForSale', (req, res) => {
     res.send(JSON.stringify(searchedItems))
 }) 
 
-<<<<<<< HEAD
-app.get('/getItem', (req, res) => {
-    let item = {itemName:"name",description:"desc", price:"40$", sellerId:"2"}
-    res.send(JSON.stringify(item))
-}) 
-
 app.listen(4001, ()=> (console.log("listening on port 4000")))
-=======
-app.get('/getItem', (req,res) => {
-    // let body = req.body.toString();
-    // let parsed = JSON.parse(body);
-    let specificItem = alibay.getItem(60433385)
-    // specificItem = specificItem[0]
-    res.send(JSON.stringify(specificItem))
-} ) 
-
-app.listen(4001, ()=> (console.log("listening on port 4001")))
->>>>>>> 2826dea62727d92bff9ecf812aba295bab4eccd1
