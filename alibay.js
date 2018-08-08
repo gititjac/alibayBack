@@ -214,6 +214,14 @@ function searchForListings(searchTerm) {
     
 }
 
+function getItem (itemId) {
+    let allItemsArray = Object.keys(allItems);
+    let specificItem = allItemsArray[itemId];
+    return specificItem
+}
+
+
+
 module.exports = {
     genUID, // This is just a shorthand. It's the same as genUID: genUID. 
     initializeUserIfNeeded,
@@ -226,6 +234,7 @@ module.exports = {
     allItemsSold,
     allListings,
     searchForListings,
-    signup
+    signup,
+    getItem
     // Add all the other functions that need to be exported
 }

@@ -151,4 +151,12 @@ app.get('/searchItemForSale', (req, res) => {
     res.send(JSON.stringify(searchedItems))
 }) 
 
-app.listen(4001, ()=> (console.log("listening on port 4000")))
+app.get('/getItem', (req,res) => {
+    // let body = req.body.toString();
+    // let parsed = JSON.parse(body);
+    let specificItem = allItemsArray[1]
+    // specificItem = specificItem[0]
+    res.send(JSON.stringify(specificItem))
+} ) 
+
+app.listen(4001, ()=> (console.log("listening on port 4001")))
