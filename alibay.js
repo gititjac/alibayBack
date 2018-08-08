@@ -3,10 +3,6 @@ const assert = require('assert');
 const sha256 = require ('sha256');
 const fs = require ('fs');
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 2220a449313fce0a71e0fc4a32d559ed0682ac12
 
 /* let ItemsBought = function (itemsBought) {
     return fs.writeFileSync('./itemsBought.json', JSON.stringify(itemsBought))
