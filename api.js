@@ -36,18 +36,11 @@ app.get('/boughtHistory', (req,res) => {
     }
 )
 
-<<<<<<< HEAD
-app.listen(3000, () => console.log('Listening on port 3000!'))
-const alibay = require('./alibay')
-const express = require('express')
-const app = express()
-=======
 app.get('/soldHistory', (req, res) => {
     userId = req.query.userId;
     res.send(JSON.stringify(alibay.getItemsSold(userId)))
     }
 )
->>>>>>> 2826dea62727d92bff9ecf812aba295bab4eccd1
 
 app.get('/allItemsForSale', (req,res) => {
     let allItems = alibay.allListings();
@@ -90,8 +83,4 @@ app.get('/getItem', (req, res) => {
 )
 
 
-<<<<<<< HEAD
-app.listen(3000, () => console.log('Listening on port 3000!'))
-=======
 app.listen(3001, () => console.log('Listening on port 3000!'))
->>>>>>> 2826dea62727d92bff9ecf812aba295bab4eccd1
