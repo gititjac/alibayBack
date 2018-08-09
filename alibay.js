@@ -61,9 +61,10 @@ function login(username, password) {
         if(users[userId].username === username && users[userId].password === sha256(password)) {
              result = {success:true, userId, username, password}
         }
-       return result;
+       
     })
-
+    //must be outside of the map
+    return result;
 }
 
 //this function takes an userId and itemId and places it in the itemsBought object.
@@ -237,6 +238,7 @@ module.exports = {
     allListings,
     searchForListings,
     signup,
-    getItem
+    getItem,
+    login
     // Add all the other functions that need to be exported
 }
