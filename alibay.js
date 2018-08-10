@@ -129,14 +129,15 @@ This function is incomplete. You need to complete it.
       [blurb] A blurb describing the item
     returns: The ID of the new listing
 */
-function createListing(itemName, sellerId, price, description) {
+function createListing(itemName, sellerId, price, description, itemUrl) {
     let itemId = genUID();
     allItems[itemId] = {
         itemName, 
         sellerId, 
         price, 
         description,
-        itemId 
+        itemId,
+        itemUrl
     };
     fs.writeFileSync('data/allItems.json', JSON.stringify(allItems))
     return itemId;

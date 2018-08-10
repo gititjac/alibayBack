@@ -66,7 +66,8 @@ app.post('/sellItem', (req, res) => {
     let description = parsed.description;
     let price = parsed.price;
     let sellerId = parsed.sellerId;
-    res.send(JSON.stringify(alibay.createListing(itemName, sellerId, price, description)))
+    let itemUrl = parsed.itemUrl;
+    res.send(JSON.stringify(alibay.createListing(itemName, sellerId, price, description, itemUrl)))
     }
 )
 
