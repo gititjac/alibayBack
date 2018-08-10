@@ -228,6 +228,7 @@ module.exports = {
     initializeUserIfNeeded,
     putItemsBought,
     getItemsBought,
+    getItemsSold,
     allItemsBought,
     createListing,
     getItemDescription,
@@ -236,6 +237,7 @@ module.exports = {
     allListings,
     searchForListings,
     signup,
-    getItem
+    getItem,
+    login
     // Add all the other functions that need to be exported
 }
