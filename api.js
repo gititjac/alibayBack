@@ -72,7 +72,7 @@ app.post('/sellItem', (req, res) => {
 )
 
 app.get('/searchItemForSale', (req, res) => {
-        
+    searchTerm = req.query.searchTerm
     res.send(JSON.stringify(alibay.searchForListings(searchTerm)))
     }
 ) 
@@ -84,4 +84,4 @@ app.get('/getItem', (req, res) => {
 )
 
 
-app.listen(3001, () => console.log('Listening on port 3000!'))
+app.listen(4001, () => console.log('Listening on port 4001!'))

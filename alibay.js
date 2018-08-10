@@ -106,8 +106,8 @@ function initializeUserIfNeeded(userId) {
     if(!items) {
         itemsBought[userId] = [];
         itemsSold[userId] = [];
-        //putItemsBought(userId, []);
-        //putItemsSold(userId, []);
+        putItemsBought(userId, []);
+        putItemsSold(userId, []);
     }
 }
 

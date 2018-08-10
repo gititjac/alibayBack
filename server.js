@@ -1,12 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require ('body-parser');
-<<<<<<< HEAD
-//const alibay = require ('./alibay.js')
-=======
-
 const alibay = require ('./alibay.js')
->>>>>>> 2826dea62727d92bff9ecf812aba295bab4eccd1
 
 app.use(bodyParser.raw({type: '*/*'}));
 
@@ -157,21 +152,9 @@ app.get('/searchItemForSale', (req, res) => {
     res.send(JSON.stringify(searchedItems))
 }) 
 
-<<<<<<< HEAD
 app.get('/getItem', (req, res) => {
     let item = {itemName:"name",description:"desc", price:"40$", sellerId:"2"}
     res.send(JSON.stringify(item))
 }) 
 
 app.listen(4001, ()=> (console.log("listening on port 4000")))
-=======
-app.get('/getItem', (req,res) => {
-    // let body = req.body.toString();
-    // let parsed = JSON.parse(body);
-    let specificItem = alibay.getItem(60433385)
-    // specificItem = specificItem[0]
-    res.send(JSON.stringify(specificItem))
-} ) 
-
-app.listen(4001, ()=> (console.log("listening on port 4001")))
->>>>>>> 2826dea62727d92bff9ecf812aba295bab4eccd1
