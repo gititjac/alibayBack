@@ -3,7 +3,10 @@ const express = require('express')
 const app = express()
 const bodyParser = require ('body-parser');
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ca28d7e7bf47b0f282cc46256d1cde0b65f66060
 
 app.use(bodyParser.raw({type: '*/*'}));
 
@@ -38,7 +41,7 @@ app.get('/boughtHistory', (req,res) => {
 )
 
 app.get('/soldHistory', (req, res) => {
-    userId = req.query.userId
+    userId = req.query.userId;
     res.send(JSON.stringify(alibay.getItemsSold(userId)))
     }
 )
@@ -79,9 +82,13 @@ app.get('/searchItemForSale', (req, res) => {
 
 app.get('/getItem', (req, res) => {
     itemId = req.query.itemId;
-    res.send(JSON.stringify(alibay.getItem(itemId)))
+    res.send(JSON.stringify(alibay.getItem(itemId))) 
     }
 )
 
 
+<<<<<<< HEAD
 app.listen(4001, () => console.log('Listening on port 4001!'))
+=======
+app.listen(3001, () => console.log('Listening on port 3000!'))
+>>>>>>> ca28d7e7bf47b0f282cc46256d1cde0b65f66060

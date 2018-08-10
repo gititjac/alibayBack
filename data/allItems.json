@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "60433385": {
         "itemName": "shoes",
         "sellerId": 1813552,
@@ -21,5 +22,20 @@
         "description": "Faux fur gloves",
         "itemId": 93354890,
         "buyerId": 13791428
+=======
+    "11186441": {
+        "itemName": "1",
+        "sellerId": "",
+        "price": "3",
+        "description": "2",
+        "itemId": 11186441
+    },
+    "15803302": {
+        "itemName": "a",
+        "sellerId": "",
+        "price": "c",
+        "description": "b",
+        "itemId": 15803302
+>>>>>>> ca28d7e7bf47b0f282cc46256d1cde0b65f66060
     }
 }
