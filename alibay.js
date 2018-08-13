@@ -1,7 +1,7 @@
 
 const assert = require('assert');
-const sha256 = require ('sha256');
-const fs = require ('fs');
+const sha256 = require('sha256');
+const fs = require('fs');
 
 
 /* let ItemsBought = function (itemsBought) {
@@ -20,11 +20,11 @@ let users = JSON.parse(fs.readFileSync('data/userList.json'))
 let itemsSold = JSON.parse(fs.readFileSync('data/itemsSold.json'))
 //let allItems = {};//map that keeps track of all items
 let allItems = JSON.parse(fs.readFileSync('data/allItems.json'))
-let itemIds = Object.keys(allItems).filter ((item) => {
-    if(allItems[item].itemName) {
-        return {success: true}
+let itemIds = Object.keys(allItems).filter((item) => {
+    if (allItems[item].itemName) {
+        return { success: true }
     }
-    else {return {success: false}}
+    else { return { success: false } }
 });
 
 /*
@@ -36,32 +36,32 @@ function genUID() {
 
 //signup function takes a username and password, which must be more than 5 characters. The userId is generated using the genUID() function and
 //the user is then stored in the users object.
-function signup (username, pass) {
-    if(pass.length < 5) {
+function signup(username, pass) {
+    if (pass.length < 5) {
         return "password too short";
     } else {
-    let userId = genUID();
-    let password = sha256(pass);
-    users[userId] = {
-        username,
-        password,
-        userId
+        let userId = genUID();
+        let password = sha256(pass);
+        users[userId] = {
+            username,
+            password,
+            userId
+        }
+        fs.writeFileSync('data/userList.json', JSON.stringify(users))
+        return userId;
+
     }
-    fs.writeFileSync('data/userList.json', JSON.stringify(users)) 
-    return userId;
-    
-    }
-        
-} 
+
+}
 
 //the login function takes an username and password, matches it to a username and password in the users object, and returns success or failure accordingly
 function login(username, password) {
-        let result = {success: false}
+    let result = { success: false }
     Object.keys(users).map((userId, ind) => {
-        if(users[userId].username === username && users[userId].password === sha256(password)) {
-             result = {success:true, userId, username, password}
+        if (users[userId].username === username && users[userId].password === sha256(password)) {
+            result = { success: true, userId, username, password }
         }
-       
+
     })
     //must be outside of the map
     return result;
@@ -81,18 +81,18 @@ function putItemsSold(userId, itemId) {
 
 function getItemsBought(userId) {
     var itemIds = itemsBought[userId];
-    if(itemIds == undefined) {
+    if (itemIds == undefined) {
         return null;
     }
-    return {itemIds};
+    return { itemIds };
 }
 
-function getItemsSold (userId) {
+function getItemsSold(userId) {
     var itemIds = itemsSold[userId];
-    if(itemIds == undefined) {
+    if (itemIds == undefined) {
         return null;
     }
-    return {itemIds};
+    return { itemIds };
 }
 
 
@@ -103,7 +103,7 @@ returns: undefined
 */
 function initializeUserIfNeeded(userId) {
     var items = getItemsBought[userId];
-    if(!items) {
+    if (!items) {
         itemsBought[userId] = [];
         itemsSold[userId] = [];
         putItemsBought(userId, []);
@@ -117,7 +117,7 @@ allItemsBought returns the IDs of all the items bought by a buyer
     returns: an array of listing IDs
 */
 function allItemsBought(buyerID) {
-    return itemsBought[buyerID];    
+    return itemsBought[buyerID];
 }
 
 /* 
@@ -132,16 +132,16 @@ This function is incomplete. You need to complete it.
 function createListing(itemName, sellerId, price, description, itemUrl) {
     let itemId = genUID();
     allItems[itemId] = {
-        itemName, 
-        sellerId, 
-        price, 
+        itemName,
+        sellerId,
+        price,
         description,
         itemId,
         itemUrl
     };
     fs.writeFileSync('data/allItems.json', JSON.stringify(allItems))
     return itemId;
-    
+
 }
 
 /* 
@@ -151,7 +151,7 @@ getItemDescription returns the description of a listing
 */
 function getItemDescription(itemId) {
     return allItems[itemId];
-    
+
 }
 
 /* 
@@ -193,32 +193,33 @@ Once an item is sold, it will not be returned by allListings
 function allListings() {
     let allListings = [];
     let allItemsArray = Object.keys(allItems)
-    
+
     allListings = allItemsArray.filter(itemId => allItems[itemId].buyerId === undefined)
-    
-    return allListings
-    }
+    // allListings was just giving us a list of keys, here we used map to create an array of objects with relevant info
+    return allListings.map(listing => allItems[listing]);
+}
 
 
 
 /*
-searchForListings returns the IDs of all the listings currently on the market
+searchForListings returns the IDs of all the` listings currently on the market
 Once an item is sold, it will not be returned by searchForListings
     parameter: [searchTerm] The search string matching listing descriptions
     returns: an array of listing IDs
 */
 function searchForListings(searchTerm) {
+    console.log(searchTerm);
     let searchedItems = []
     let allItemsArray = Object.keys(allItems)
 
-    searchedItems = allItemsArray.filter(itemId=>!allItems[itemId].buyerId && (allItems[itemId].description.includes(searchTerm)||allItems[itemId].itemName.includes(searchTerm)))
-                 
-    return searchedItems
-    
+    searchedItems = allItemsArray.filter(itemId => !allItems[itemId].buyerId && (allItems[itemId].description.includes(searchTerm) || allItems[itemId].itemName.includes(searchTerm)))
+    // allListings was just giving us a list of keys, here we used map to create an array of objects with relevant info
+    return searchedItems.map(item => allItems[item]);
+
 }
 
-function getItem (itemId) {
-    
+function getItem(itemId) {
+
     let specificItem = allItems[itemId];
     return specificItem
 }

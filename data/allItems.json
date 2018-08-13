@@ -1,33 +1,4 @@
-
 {
-    "11186441": {
-        "itemName": "1",
-        "sellerId": "",
-        "price": "3",
-        "description": "2",
-        "itemId": 11186441
-    },
-    "15803302": {
-        "itemName": "a",
-        "sellerId": "",
-        "price": "c",
-        "description": "b",
-        "itemId": 15803302
-    },
-    "29548988": {
-        "itemName": "book",
-        "sellerId": "",
-        "price": "40",
-        "description": "great book",
-        "itemId": 29548988
-    },
-    "36238146": {
-        "itemName": "gtrwgvwrt",
-        "sellerId": "",
-        "price": "grewgrew",
-        "description": "grewgwre",
-        "itemId": 36238146
-    },
     "53867299": {
         "itemName": "American Gods",
         "sellerId": "",
@@ -42,12 +13,12 @@
         "description": "classic",
         "itemId": 57476848
     },
-    "88032673": {
-        "itemName": "2003",
-        "price": "gg",
-        "description": "gggggg",
-        "itemId": 88032673,
-        "itemUrl": ".//ppppp"
+    "73934330": {
+        "itemName": "Hemmingway",
+        "price": "60$",
+        "description": "great great book",
+        "itemId": 73934330,
+        "itemUrl": "7904890.JPG"
     },
     "92134298": {
         "itemName": "black swan green",
